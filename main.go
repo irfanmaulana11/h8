@@ -1,44 +1,55 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
+	"strconv"
 )
 
-type employe struct {
-	Name string
+// type employe struct {
+// 	Name string
+// }
+
+type employeNew struct {
+	Name      string
+	Alamat    string
+	Pekerjaan string
+	Alasan    string
 }
 
+// contoh :  go run main.go 11
+
 func main() {
-	//PrintName()
-	es := []*employe{
-		{Name: "irfan"},
-		{Name: "Giva"},
-		{Name: "Yusuf"},
-		{Name: "Aulia"},
-		{Name: "Fahmi"},
-		{Name: "Edi"},
-		{Name: "Cecep"},
-		{Name: "Teguh"},
-		{Name: "Bayu"},
-		{Name: "Amali"},
+	arg := os.Args[1]
+	argInt, _ := strconv.Atoi(arg)
+
+	employe := []employeNew{
+		{Name: "irfan", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Giva", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Yusuf", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Aulia", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Fahmi", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Edi", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Cecep", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Teguh", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Bayu", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
+		{Name: "Amali", Alamat: "Jakarta", Pekerjaan: "Developer", Alasan: "Gratis"},
 	}
 
-	var _ = func(em []*employe) *string {
-		for _, e := range em {
-			fmt.Println(e.Name)
-		}
-		return nil
-	}(es)
+	PrintName(employe, argInt)
 
 }
 
 // PrintName ...
-func PrintName() {
-	var names1 = []string{"irfan", "Aulia", "San", "Wicak", "Iqbal"}
-	var names2 = []string{"Giva", "Fahmi", "Rizki", "Billy", "Fajar"}
-	names1 = append(names1, names2...)
+func PrintName(emp []employeNew, index int) {
 
-	for _, n := range names1 {
-		fmt.Println(n)
+	if index > len(emp) || index == 0 {
+		fmt.Println("Data tidak ditemukan")
+		return
 	}
+
+	data, _ := json.MarshalIndent(emp[index-1], "", "\t")
+	fmt.Print(string(data))
+
 }
